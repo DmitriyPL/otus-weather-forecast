@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -22,6 +24,7 @@
     "@types/jest": "^27.5.1",
     "babel-jest": "^28.1.0",
     "eslint": "^8.16.0",
+    "eslint-plugin-jest": "^26.4.2",
     "jest": "^28.1.0"
   }
 }
