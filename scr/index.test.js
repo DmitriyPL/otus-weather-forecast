@@ -1,7 +1,7 @@
-import { test } from "./index"
+import { test } from "./index";
 
 describe("test", () => {
-    it("is a function", () => {
-      expect(typeof test).toBe("function");
-    });
+  it("is a function", () => {
+    expect(typeof test).toBe("function");
   });
+});
