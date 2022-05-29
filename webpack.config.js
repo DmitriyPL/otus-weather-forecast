@@ -9,6 +9,8 @@ module.exports = {
     path: resolve(__dirname, "dist"),
     clean: true,
   },
+  devtool:
+    process.env.NODE_ENV === "development" ? "eval-source-map" : "source-map",
   plugins: [
     new HtmlWebpackPlugin({
       template: "index.html",
@@ -21,11 +23,9 @@ module.exports = {
         exclude: /(node_modules)/,
         use: {
           loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
-          },
         },
       },
     ],
   },
+  watch: true,
 };
