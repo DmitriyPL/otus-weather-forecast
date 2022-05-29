@@ -17,7 +17,10 @@
   },
   "homepage": "https://github.com/DmitriyPL/otus-weather-forecast#readme",
   "devDependencies": {
+    "@babel/core": "^7.18.2",
+    "@babel/preset-env": "^7.18.2",
     "@types/jest": "^27.5.1",
+    "babel-jest": "^28.1.0",
     "jest": "^28.1.0"
   }
 }
