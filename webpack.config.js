@@ -13,6 +13,7 @@ module.exports = {
     environment: {
       arrowFunction: false,
     },
+    assetModuleFilename: "images/[name][ext]",
   },
   devtool:
     process.env.NODE_ENV === "development" ? "eval-source-map" : "source-map",
@@ -36,6 +37,17 @@ module.exports = {
       {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "static/[hash][ext]",
+        },
+      },
+      {
+        test: /\.html$/i,
+        loader: "html-loader",
       },
     ],
   },
