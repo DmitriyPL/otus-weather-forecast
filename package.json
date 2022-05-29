@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/DmitriyPL/otus-weather-forecast/issues"
   },
-  "homepage": "https://github.com/DmitriyPL/otus-weather-forecast#readme"
+  "homepage": "https://github.com/DmitriyPL/otus-weather-forecast#readme",
+  "devDependencies": {
+    "@types/jest": "^27.5.1",
+    "jest": "^28.1.0"
+  }
 }
