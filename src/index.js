@@ -4,7 +4,7 @@ export function test(a, b) {
 
 const h1El = document.body.querySelector("h1");
 
-h1El.textContent = "Test 1";
+h1El.textContent = "Test 3";
 
 const foo = () => {
   console.log("foo");
