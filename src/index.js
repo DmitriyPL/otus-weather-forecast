@@ -1,3 +1,5 @@
+// import "../css/file.css"
+
 export function test(a, b) {
   return a + b + 1;
 }
