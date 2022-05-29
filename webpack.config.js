@@ -1,4 +1,5 @@
 // const { template } = require("@babel/core");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { resolve } = require("path");
@@ -9,9 +10,15 @@ module.exports = {
     filename: "main.js",
     path: resolve(__dirname, "dist"),
     clean: true,
+    environment: {
+      arrowFunction: false,
+    },
   },
   devtool:
     process.env.NODE_ENV === "development" ? "eval-source-map" : "source-map",
+  optimization: {
+    minimizer: [`...`, new CssMinimizerPlugin()],
+  },
   plugins: [
     new HtmlWebpackPlugin({
       template: "index.html",
