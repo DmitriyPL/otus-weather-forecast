@@ -66,12 +66,14 @@ async function showCurrentWeather(el, apiKey) {
   showWeather(el, weatherInfo, lat, lon);
 }
 
+/* eslint-disable no-param-reassign */
 function mapInit() {
   map = new ymaps.Map("map", {
     center: [55.76, 37.64],
     zoom: 7,
   });
 }
+/* eslint-disable no-param-reassign */
 
 function main() {
   const apiKey = "21ca9df46444fbd55278f1acab840a5a"; // Храним в переменных окружения
@@ -83,6 +85,7 @@ function main() {
   const weatherInfoEl = document.querySelector("#weather-info");
 
   ymaps.ready(mapInit);
+  // eslint-disable-next-line no-unused-vars
 
   showCurrentWeather(weatherInfoEl, apiKey);
 
