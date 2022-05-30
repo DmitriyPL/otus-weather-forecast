@@ -4,10 +4,26 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    
+    <title>Weather Forecast</title>
+
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=c1d31d25-4ceb-44e7-a986-9479f0f17ca7&lang=ru_RU" type="text/javascript"></script>
+  
   </head>
   <body>
-    <h1>Webpack</h1>
-    <h1>Webpack2</h1>
+    <main>
+      
+      <div id="weather-info"></div>
+
+      <form>
+        <input placeholder="Enter the city" required autofocus />
+        <button>Get weather</button>
+      </form>
+  
+      <div id="list"></div>    
+
+      <div id="map" style="width: 600px; height: 400px"></div>
+
+    </main>  
   </body>
 </html>
