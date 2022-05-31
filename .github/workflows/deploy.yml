@@ -2,8 +2,6 @@ name: Build and Deploy
 on: [push]
 permissions: 
   contents: write
-env:
-  APIKEY_YANDEXMAP: 21ca9df46444fbd55278f1acab840a5a
 jobs:
   build-and-deploy:
     concurrency: ci-${{ github.ref }} # Recommended if you intend to make multiple deployments in quick succession.
