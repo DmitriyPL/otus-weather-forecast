@@ -11,8 +11,41 @@ export function readList(key) {
   return items === null ? [] : items;
 }
 
-export function drawList(el, items) {
-  el.innerHTML = `<ol>${items.map((el) => `<li>${el}</li>`).join("")}</ol>`;
+export function drawList(items) {
+  const listEl = document.querySelector("#list");
+
+  listEl.innerHTML = "";
+
+  const olEl = document.createElement("ol");
+
+  items.forEach((city) => {
+    let liEl = document.createElement("li");
+    liEl.innerText = city;
+    olEl.appendChild(liEl);
+
+    liEl.addEventListener("click", async (event) => {
+      event.preventDefault();
+
+      const el = event.target;
+      const weatherInfo = await getWeather(el.innerText);
+      let lat = weatherInfo.coord.lat;
+      let lon = weatherInfo.coord.lon;
+      showWeather(weatherInfo, lat, lon);
+    });
+
+    liEl.onmouseover = liEl.onmouseout = changeLiBackground;
+  });
+
+  listEl.appendChild(olEl);
+}
+
+function changeLiBackground(event) {
+  if (event.type == "mouseover") {
+    event.target.style.background = "grey";
+  }
+  if (event.type == "mouseout") {
+    event.target.style.background = "";
+  }
 }
 
 export function submitHandler(event, items) {
@@ -36,7 +69,8 @@ async function getGeo() {
   return resp.json();
 }
 
-async function getWeather(apiKey, param, useCity = true) {
+async function getWeather(param, useCity = true) {
+  const apiKey = "21ca9df46444fbd55278f1acab840a5a"; // Храним в переменных окружения
   let reqpath = "";
   if (useCity) {
     reqpath = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${param}&appid=${apiKey}`;
@@ -50,59 +84,55 @@ async function getWeather(apiKey, param, useCity = true) {
   return resp.json();
 }
 
-function showWeather(el, weatherInfo, lat, lon) {
-  el.innerHTML = `
+function showWeather(weatherInfo, lat, lon) {
+  const weatherInfoEl = document.querySelector("#weather-info");
+  weatherInfoEl.innerHTML = `
   <h1>${weatherInfo.name}</h1>
   <img src="http://openweathermap.org/img/wn/${weatherInfo.weather[0].icon}@2x.png" alt="Weather icon">
   `;
   map.setCenter([lat, lon]);
 }
 
-async function showCurrentWeather(el, apiKey) {
+async function showCurrentWeather() {
   const geo = await getGeo();
-  let weatherInfo = await getWeather(apiKey, geo, false);
+  let weatherInfo = await getWeather(geo, false);
   const lat = geo["latitude"];
   const lon = geo["longitude"];
-  showWeather(el, weatherInfo, lat, lon);
+  showWeather(weatherInfo, lat, lon);
 }
 
-/* eslint-disable no-param-reassign */
 function mapInit() {
   map = new ymaps.Map("map", {
     center: [55.76, 37.64],
     zoom: 7,
   });
 }
-/* eslint-disable no-param-reassign */
 
 function main() {
-  const apiKey = "21ca9df46444fbd55278f1acab840a5a"; // Храним в переменных окружения
-
   const formEl = document.querySelector("form");
   const cities = readList("list");
 
-  const listEl = document.querySelector("#list");
-  const weatherInfoEl = document.querySelector("#weather-info");
-
   ymaps.ready(mapInit);
-  // eslint-disable-next-line no-unused-vars
 
-  showCurrentWeather(weatherInfoEl, apiKey);
+  showCurrentWeather();
 
-  drawList(listEl, cities);
+  drawList(cities);
 
   formEl.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const cityName = submitHandler(event, cities);
-    drawList(listEl, cities);
+    drawList(cities);
     saveList("list", cities);
 
-    const weatherInfo = await getWeather(apiKey, cityName);
+    const weatherInfo = await getWeather(cityName);
     let lat = weatherInfo.coord.lat;
     let lon = weatherInfo.coord.lon;
-    showWeather(weatherInfoEl, weatherInfo, lat, lon);
+    showWeather(weatherInfo, lat, lon);
   });
 }
 
 main();
+
+// eslint-disable-next-line no-unused-vars
+/* eslint-disable no-param-reassign */
