@@ -1,4 +1,5 @@
 // const { template } = require("@babel/core");
+const Dotenv = require("dotenv-webpack");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -25,6 +26,7 @@ module.exports = {
       template: "index.html",
     }),
     new MiniCssExtractPlugin(),
+    new Dotenv(),
   ],
   module: {
     rules: [

@@ -70,14 +70,13 @@ async function getGeo() {
 }
 
 async function getWeather(param, useCity = true) {
-  const apiKey = "21ca9df46444fbd55278f1acab840a5a"; // Храним в переменных окружения
   let reqpath = "";
   if (useCity) {
-    reqpath = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${param}&appid=${apiKey}`;
+    reqpath = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${param}&appid=${process.env.APIKEY_YANDEXMAP}`;
   } else {
     const lat = param["latitude"];
     const lon = param["longitude"];
-    reqpath = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+    reqpath = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.APIKEY_YANDEXMAP}`;
   }
 
   let resp = await fetch(reqpath);
