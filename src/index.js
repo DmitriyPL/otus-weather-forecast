@@ -1,4 +1,4 @@
-// import "../css/file.css"
+import "../css/normalize.css";
 
 let map;
 
