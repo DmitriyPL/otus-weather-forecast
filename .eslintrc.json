@@ -14,5 +14,5 @@
   "plugins": ["jest"],
   "globals": {
     "ymaps": false
-}
+  }
 }
