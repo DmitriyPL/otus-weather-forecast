@@ -71,14 +71,14 @@ async function getGeo() {
 }
 
 async function getWeather(param, useCity = true) {
-  const APIKEY_YANDEXMAP = "21ca9df46444fbd55278f1acab840a5a"; // process.env.APIKEY_YANDEXMAP
+  const APIKEY_WEATHER = "21ca9df46444fbd55278f1acab840a5a"; // process.env.APIKEY_YANDEXMAP
   let reqpath = "";
   if (useCity) {
-    reqpath = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${param}&appid=${APIKEY_YANDEXMAP}`;
+    reqpath = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${param}&appid=${APIKEY_WEATHER}`;
   } else {
     const lat = param["latitude"];
     const lon = param["longitude"];
-    reqpath = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKEY_YANDEXMAP}`;
+    reqpath = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKEY_WEATHER}`;
   }
 
   let resp = await fetch(reqpath);
