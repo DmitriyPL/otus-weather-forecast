@@ -3,6 +3,7 @@ import "../css/style.css";
 import { saveList, readList } from "../src/workWithList.js";
 
 let map;
+const APIKEY_WEATHER = "21ca9df46444fbd55278f1acab840a5a"; // process.env.APIKEY_YANDEXMAP
 
 export function drawList(items) {
   const listEl = document.querySelector("#list");
@@ -27,7 +28,7 @@ async function clickLiElHandler(event) {
   event.preventDefault();
 
   const el = event.target;
-  const weatherInfo = await getWeather(el.innerText);
+  const weatherInfo = await getWeatherByCityName(el.innerText);
   let lat = weatherInfo.coord.lat;
   let lon = weatherInfo.coord.lon;
   showWeather(weatherInfo, lat, lon);
@@ -48,17 +49,16 @@ async function getGeo() {
   return resp.json();
 }
 
-async function getWeather(param, useCity = true) {
-  const APIKEY_WEATHER = "21ca9df46444fbd55278f1acab840a5a"; // process.env.APIKEY_YANDEXMAP
-  let reqpath = "";
-  if (useCity) {
-    reqpath = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${param}&appid=${APIKEY_WEATHER}`;
-  } else {
-    const lat = param["latitude"];
-    const lon = param["longitude"];
-    reqpath = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKEY_WEATHER}`;
-  }
+async function getWeatherByGeo(geo) {
+  const lat = geo["latitude"];
+  const lon = geo["longitude"];
+  let reqpath = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${APIKEY_WEATHER}`;
+  let resp = await fetch(reqpath);
+  return resp.json();
+}
 
+async function getWeatherByCityName(cityName) {
+  let reqpath = `https://api.openweathermap.org/data/2.5/weather?units=metric&q=${cityName}&appid=${APIKEY_WEATHER}`;
   let resp = await fetch(reqpath);
   return resp.json();
 }
@@ -74,7 +74,7 @@ function showWeather(weatherInfo, lat, lon) {
 
 async function showCurrentWeather() {
   const geo = await getGeo();
-  let weatherInfo = await getWeather(geo, false);
+  let weatherInfo = await getWeatherByGeo(geo);
   const lat = geo["latitude"];
   const lon = geo["longitude"];
   showWeather(weatherInfo, lat, lon);
@@ -110,7 +110,7 @@ function submitHandler(formEl, cities) {
     drawList(cities);
     saveList("list", cities);
 
-    const weatherInfo = await getWeather(cityName);
+    const weatherInfo = await getWeatherByCityName(cityName);
     let lat = weatherInfo.coord.lat;
     let lon = weatherInfo.coord.lon;
 
