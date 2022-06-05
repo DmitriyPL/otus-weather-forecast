@@ -29,9 +29,13 @@ async function clickLiElHandler(event) {
 
   const el = event.target;
   const weatherInfo = await getWeatherByCityName(el.innerText);
-  let lat = weatherInfo.coord.lat;
-  let lon = weatherInfo.coord.lon;
-  map.setCenter([lat, lon]);
+  if (weatherInfo.cod === "404") {
+    weatherInfo.name = "city not found";
+  } else {
+    let lat = weatherInfo.coord.lat;
+    let lon = weatherInfo.coord.lon;
+    map.setCenter([lat, lon]);
+  }
   showWeather(weatherInfo);
 }
 
@@ -66,18 +70,27 @@ async function getWeatherByCityName(cityName) {
 
 function showWeather(weatherInfo) {
   const weatherInfoEl = document.querySelector("#weather-info");
-  weatherInfoEl.innerHTML = `
-  <h1>${weatherInfo.name}</h1>
-  <img src="http://openweathermap.org/img/wn/${weatherInfo.weather[0].icon}@2x.png" alt="Weather icon">
-  `;
+  let innerHTML = "";
+  if (Object.prototype.hasOwnProperty.call(weatherInfo, "weather")) {
+    innerHTML = `<h1>${weatherInfo.name}</h1>
+    <img src="http://openweathermap.org/img/wn/${weatherInfo.weather[0].icon}@2x.png" alt="Weather icon">`;
+  } else {
+    innerHTML = `<h1>${weatherInfo.name}</h1>
+    <div class="not-found"></div>`;
+  }
+  weatherInfoEl.innerHTML = innerHTML;
 }
 
 async function showCurrentWeather() {
   const geo = await getGeo();
   let weatherInfo = await getWeatherByGeo(geo);
-  const lat = geo["latitude"];
-  const lon = geo["longitude"];
-  map.setCenter([lat, lon]);
+  if (weatherInfo.cod === "404") {
+    weatherInfo.name = "city not found";
+  } else {
+    const lat = geo["latitude"];
+    const lon = geo["longitude"];
+    map.setCenter([lat, lon]);
+  }
   showWeather(weatherInfo);
 }
 
@@ -112,9 +125,13 @@ function submitHandler(formEl, cities) {
     saveList("list", cities);
 
     const weatherInfo = await getWeatherByCityName(cityName);
-    let lat = weatherInfo.coord.lat;
-    let lon = weatherInfo.coord.lon;
-    map.setCenter([lat, lon]);
+    if (weatherInfo.cod === "404") {
+      weatherInfo.name = "city not found";
+    } else {
+      let lat = weatherInfo.coord.lat;
+      let lon = weatherInfo.coord.lon;
+      map.setCenter([lat, lon]);
+    }
     showWeather(weatherInfo);
   });
 }

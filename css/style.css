@@ -1,3 +1,11 @@
 li {
   background: white;
 }
+
+.not-found {
+  height: 200px;
+  width: 200px;
+  background: url("../assets/not-found.png");
+  background-size: cover;
+  margin-bottom: 2%;
+}
