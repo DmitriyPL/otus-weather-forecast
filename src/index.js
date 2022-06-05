@@ -31,7 +31,8 @@ async function clickLiElHandler(event) {
   const weatherInfo = await getWeatherByCityName(el.innerText);
   let lat = weatherInfo.coord.lat;
   let lon = weatherInfo.coord.lon;
-  showWeather(weatherInfo, lat, lon);
+  map.setCenter([lat, lon]);
+  showWeather(weatherInfo);
 }
 
 function changeLiBackground(event) {
@@ -63,13 +64,12 @@ async function getWeatherByCityName(cityName) {
   return resp.json();
 }
 
-function showWeather(weatherInfo, lat, lon) {
+function showWeather(weatherInfo) {
   const weatherInfoEl = document.querySelector("#weather-info");
   weatherInfoEl.innerHTML = `
   <h1>${weatherInfo.name}</h1>
   <img src="http://openweathermap.org/img/wn/${weatherInfo.weather[0].icon}@2x.png" alt="Weather icon">
   `;
-  map.setCenter([lat, lon]);
 }
 
 async function showCurrentWeather() {
@@ -77,7 +77,8 @@ async function showCurrentWeather() {
   let weatherInfo = await getWeatherByGeo(geo);
   const lat = geo["latitude"];
   const lon = geo["longitude"];
-  showWeather(weatherInfo, lat, lon);
+  map.setCenter([lat, lon]);
+  showWeather(weatherInfo);
 }
 
 function mapInit() {
@@ -113,8 +114,8 @@ function submitHandler(formEl, cities) {
     const weatherInfo = await getWeatherByCityName(cityName);
     let lat = weatherInfo.coord.lat;
     let lon = weatherInfo.coord.lon;
-
-    showWeather(weatherInfo, lat, lon);
+    map.setCenter([lat, lon]);
+    showWeather(weatherInfo);
   });
 }
 
