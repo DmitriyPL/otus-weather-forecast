@@ -13,6 +13,6 @@
   "rules": {},
   "plugins": ["jest"],
   "globals": {
-    "ymaps": false
+    "ymaps": true
   }
 }
