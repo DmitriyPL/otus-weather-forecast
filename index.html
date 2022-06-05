@@ -15,16 +15,24 @@
   </head>
   <body>
     <main>
-      <div id="weather-info"></div>
+      
+      <section>
+        <div class="weather-info" id="weather-info"></div>
+      </section>
 
-      <form>
-        <input placeholder="Enter the city" required autofocus />
-        <button>Get weather</button>
-      </form>
+      <section class="weather-form">
+        <form>
+          <input placeholder="Enter the city" required autofocus />
+          <button>Get weather</button>
+        </form>
 
-      <div id="list"></div>
+        <div id="list"></div>
+      </section>
+      
+      <section class="weather-map">
+        <div class="map" id="map"></div>
+      </section>
 
-      <div id="map" style="width: 600px; height: 400px"></div>
     </main>
   </body>
 </html>
