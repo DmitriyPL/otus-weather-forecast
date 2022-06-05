@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1654435957890" clover="3.2.0">
-  <project timestamp="1654435957890" name="All files">
+<coverage generated="1654445642175" clover="3.2.0">
+  <project timestamp="1654445642176" name="All files">
     <metrics statements="8" coveredstatements="8" conditionals="3" coveredconditionals="2" methods="2" coveredmethods="2" elements="13" coveredelements="12" complexity="0" loc="8" ncloc="8" packages="1" files="1" classes="1"/>
     <file name="workWithList.js" path="D:\OTUS\otus-weather-forecast\src\workWithList.js">
       <metrics statements="8" coveredstatements="8" conditionals="3" coveredconditionals="2" methods="2" coveredmethods="2"/>
