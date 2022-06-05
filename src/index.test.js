@@ -1,4 +1,4 @@
-import { saveList } from "./index";
+import { saveList, readList } from "./workWithList";
 
 class LocalStorageMock {
   constructor() {
@@ -30,23 +30,18 @@ describe("saveList", () => {
   });
   it('save ["moscow", "london", "rome", "new york", "boston"] in localstorage', () => {
     saveList("list", ["moscow", "london", "rome", "new york", "boston"]);
-    const items = localStorage.getItem("rome");
-    expect(items).toEqual("rome");
+    const items = localStorage.getItem("list");
+    expect(items).toEqual('["moscow","london","rome","new york","boston"]');
   });
 });
 
-test("it works", () => {
-  // setup
-  jest.resetModules(); // to make sure that require will return a new module instance
-  jest.mock("./yandexMaps", () => (ymaps = "test")); // mock whatever you want, even constants
-  // const { getGoogleMaps } = require("./getGoogleMaps"); // import tested module
-
-  // // tests
-  // const maps = getGoogleMaps();
-
-  // assertions
-  expect(ymaps).toBe("test");
-
-  // cleanup
-  jest.resetModules(); // not required if you resetModules() at the beginning of each test case
+describe("readList", () => {
+  it("is a function", () => {
+    expect(readList).toBeInstanceOf(Function);
+  });
+  it('read ["moscow", "london", "rome", "new york", "boston"] from localstorage', () => {
+    saveList("list", ["moscow", "london", "rome", "new york", "boston"]);
+    const items = readList("list");
+    expect(items).toEqual(["moscow", "london", "rome", "new york", "boston"]);
+  });
 });

@@ -1,16 +1,8 @@
 import "../css/normalize.css";
 import "../css/style.css";
+import { saveList, readList } from "../src/workWithList.js";
 
 let map;
-
-export function saveList(key, items) {
-  localStorage.setItem(key, JSON.stringify(items));
-}
-
-export function readList(key) {
-  const items = JSON.parse(localStorage.getItem(key));
-  return items === null ? [] : items;
-}
 
 export function drawList(items) {
   const listEl = document.querySelector("#list");
@@ -22,22 +14,23 @@ export function drawList(items) {
   items.forEach((city) => {
     let liEl = document.createElement("li");
     liEl.innerText = city;
-    olEl.appendChild(liEl);
-
-    liEl.addEventListener("click", async (event) => {
-      event.preventDefault();
-
-      const el = event.target;
-      const weatherInfo = await getWeather(el.innerText);
-      let lat = weatherInfo.coord.lat;
-      let lon = weatherInfo.coord.lon;
-      showWeather(weatherInfo, lat, lon);
-    });
-
+    liEl.addEventListener("click", clickLiElHandler);
     liEl.onmouseover = liEl.onmouseout = changeLiBackground;
+
+    olEl.appendChild(liEl);
   });
 
   listEl.appendChild(olEl);
+}
+
+async function clickLiElHandler(event) {
+  event.preventDefault();
+
+  const el = event.target;
+  const weatherInfo = await getWeather(el.innerText);
+  let lat = weatherInfo.coord.lat;
+  let lon = weatherInfo.coord.lon;
+  showWeather(weatherInfo, lat, lon);
 }
 
 function changeLiBackground(event) {
@@ -47,21 +40,6 @@ function changeLiBackground(event) {
   if (event.type == "mouseout") {
     event.target.style.background = "";
   }
-}
-
-export function submitHandler(event, items) {
-  const formEl = event.target;
-  const input = formEl.querySelector("input");
-  const { value } = input;
-  input.value = "";
-
-  items.push(value);
-
-  if (items.length > 10) {
-    items.shift();
-  }
-
-  return value;
 }
 
 async function getGeo() {
@@ -109,28 +87,45 @@ function mapInit() {
   });
 }
 
-function main() {
-  const formEl = document.querySelector("form");
-  const cities = readList("list");
+export function addCityInList(event, items) {
+  const formEl = event.target;
+  const input = formEl.querySelector("input");
+  const { value } = input;
+  input.value = "";
 
-  ymaps.ready(mapInit);
+  items.push(value);
 
-  showCurrentWeather();
+  if (items.length > 10) {
+    items.shift();
+  }
 
-  drawList(cities);
+  return value;
+}
 
+function submitHandler(formEl, cities) {
   formEl.addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    const cityName = submitHandler(event, cities);
+    const cityName = addCityInList(event, cities);
     drawList(cities);
     saveList("list", cities);
 
     const weatherInfo = await getWeather(cityName);
     let lat = weatherInfo.coord.lat;
     let lon = weatherInfo.coord.lon;
+
     showWeather(weatherInfo, lat, lon);
   });
+}
+
+function main() {
+  const formEl = document.querySelector("form");
+  const cities = readList("list");
+
+  ymaps.ready(mapInit);
+  showCurrentWeather();
+  drawList(cities);
+  submitHandler(formEl, cities);
 }
 
 main();
