@@ -34,3 +34,19 @@ describe("saveList", () => {
     expect(items).toEqual("rome");
   });
 });
+
+test("it works", () => {
+  // setup
+  jest.resetModules(); // to make sure that require will return a new module instance
+  jest.mock("./yandexMaps", () => (ymaps = "test")); // mock whatever you want, even constants
+  // const { getGoogleMaps } = require("./getGoogleMaps"); // import tested module
+
+  // // tests
+  // const maps = getGoogleMaps();
+
+  // assertions
+  expect(ymaps).toBe("test");
+
+  // cleanup
+  jest.resetModules(); // not required if you resetModules() at the beginning of each test case
+});
