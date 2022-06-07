@@ -26,7 +26,7 @@ module.exports = {
       template: "src/index.html",
     }),
     new MiniCssExtractPlugin(),
-    new Dotenv(),
+    // new Dotenv(),
   ],
   module: {
     rules: [

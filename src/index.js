@@ -8,7 +8,7 @@ import {
 } from "../src/workWithList.js";
 import { getWeatherByCityName } from "../src/workWithAPI.js";
 import { showWeather, showCurrentWeather } from "../src/showWeather.js";
-import { map, mapInit } from "../src/yandexMAP.js";
+import { getMap } from "../src/yandexMAP.js";
 
 function submitHandler(formEl, cities) {
   formEl.addEventListener("submit", async (event) => {
@@ -24,7 +24,7 @@ function submitHandler(formEl, cities) {
     } else {
       let lat = weatherInfo.coord.lat;
       let lon = weatherInfo.coord.lon;
-      map.setCenter([lat, lon]);
+      getMap(lat, lon);
     }
     showWeather(weatherInfo);
   });
@@ -34,7 +34,6 @@ function main() {
   const formEl = document.querySelector("form");
   const cities = readList("list");
 
-  ymaps.ready(mapInit);
   showCurrentWeather();
   drawList(cities);
   submitHandler(formEl, cities);

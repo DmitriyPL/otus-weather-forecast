@@ -10,7 +10,9 @@
     "lint:fix": "prettier --write . && eslint . --fix",
     "prepare": "husky install",
     "build": "webpack --node-env production",
-    "dev": "webpack serve --node-env development"
+    "dev": "webpack serve --node-env development",
+    "deploy:web": "build && gh-pages -d dist",
+    "deploy:coverage": "test && gh-pages -d coverage/lcov-report"
   },
   "repository": {
     "type": "git",
@@ -34,6 +36,7 @@
     "eslint": "^8.16.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-jest": "^26.4.2",
+    "gh-pages": "^4.0.0",
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.5.0",
     "husky": "^8.0.1",
@@ -50,5 +53,8 @@
   "lint-staged": {
     "*.js": "eslint --fix",
     "*.{js,css,md}": "prettier --write"
+  },
+  "dependencies": {
+    "ymaps": "^0.2.1"
   }
 }

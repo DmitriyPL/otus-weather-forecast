@@ -1,5 +1,5 @@
-import { map } from "../src/yandexMAP.js";
 import { getGeo, getWeatherByGeo } from "../src/workWithAPI.js";
+import { getMap } from "../src/yandexMAP.js";
 
 export function showWeather(weatherInfo) {
   const weatherInfoEl = document.querySelector("#weather-info");
@@ -22,7 +22,7 @@ export async function showCurrentWeather() {
   } else {
     const lat = geo["latitude"];
     const lon = geo["longitude"];
-    map.setCenter([lat, lon]);
+    getMap(lat, lon);
   }
   showWeather(weatherInfo);
 }

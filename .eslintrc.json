@@ -11,8 +11,8 @@
     "sourceType": "module"
   },
   "rules": {},
-  "plugins": ["jest"],
-  "globals": {
-    "ymaps": true
-  }
+  "plugins": ["jest"]
+  // "globals": {
+  //   "ymaps": true
+  // }
 }

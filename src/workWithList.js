@@ -1,6 +1,6 @@
 import { getWeatherByCityName } from "../src/workWithAPI.js";
 import { showWeather } from "../src/showWeather.js";
-import { map } from "../src/yandexMAP.js";
+import { getMap } from "../src/yandexMAP.js";
 
 export function saveList(key, items) {
   localStorage.setItem(key, JSON.stringify(items));
@@ -50,13 +50,15 @@ async function clickLiElHandler(event) {
 
   const el = event.target;
   const weatherInfo = await getWeatherByCityName(el.innerText);
+
   if (weatherInfo.cod === "404") {
     weatherInfo.name = "city not found";
   } else {
     let lat = weatherInfo.coord.lat;
     let lon = weatherInfo.coord.lon;
-    map.setCenter([lat, lon]);
+    getMap(lat, lon);
   }
+
   showWeather(weatherInfo);
 }
 
