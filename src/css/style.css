@@ -1,0 +1,76 @@
+:root {
+  font-size: 16px;
+}
+
+/* Service */
+.invisible {
+  display: none;
+}
+
+/* Protection from user settings */
+body {
+  background-color: white;
+}
+
+/* Screen limitation */
+main {
+  max-width: 90rem;
+  min-width: 45rem;
+  margin: 0 auto;
+}
+
+section {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+section.weather-info {
+  height: 20%;
+  min-height: 20%;
+  position: relative;
+}
+
+section.weather-form {
+  height: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section.weather-map {
+  height: 50%;
+  min-height: 50%;
+  position: relative;
+}
+
+div.weather-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section.weather-form div {
+  margin-left: 5rem;
+}
+
+section.weather-form form {
+  margin-right: 5rem;
+}
+
+li {
+  background: white;
+}
+
+.not-found {
+  height: 5rem;
+  width: 5rem;
+  background: url("../assets/not-found.png");
+  background-size: cover;
+  margin-left: 5rem;
+}
+
+.map {
+  width: 40rem;
+  height: 25rem;
+  margin: auto;
+}
